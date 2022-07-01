@@ -3,7 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import axios from 'axios'
 
-const PORT = 1000
+const PORT = 2000
 
 axios.defaults.baseURL = process.env.MC_SERVER_URL
 axios.defaults.headers.common['key'] = process.env.API_KEY
@@ -45,6 +45,30 @@ for (let a of allowedPosts) {
         axios.get(a).then(r => {res.send(r.data)})
     })
 }
+
+app.post('/server/exec/set-morning', (req, res) => {
+    console.log(`post /server/exec/set-morning from ${req.ip}`)
+    const params = new URLSearchParams({command: 'time set 0', time: '1'})
+    axios.post('/server/exec', params)
+        .then(r => {res.send(r.data)})
+        .catch(e => {console.log(e)})
+})
+
+app.post('/server/exec/weather-clear', (req, res) => {
+    console.log(`post /server/exec/weather-clear from ${req.ip}`)
+    const params = new URLSearchParams({command: 'weather clear', time: '1'})
+    axios.post('/server/exec', params)
+        .then(r => {res.send(r.data)})
+        .catch(e => {console.log(e)})
+})
+
+app.post('/server/exec/weather-rain', (req, res) => {
+    console.log(`post /server/exec/weather-clear from ${req.ip}`)
+    const params = new URLSearchParams({command: 'weather rain', time: '1'})
+    axios.post('/server/exec', params)
+        .then(r => {res.send(r.data)})
+        .catch(e => {console.log(e)})
+})
 
 app.listen(PORT, () => {
     console.log(`listening on port: ${PORT}`)
