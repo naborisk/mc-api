@@ -25,10 +25,20 @@ const allowedGets = [
   '/server/whitelist',
   '/plugins',
   // '/players',
-  '/players/all',
+  //'/players/all',
 ]
 
 const allowedPosts = []
+
+app.get('/players/all', (req, res) => {
+  console.log(`get /players/all (filtered) from ${req.ip}`)
+  axios.get('/players/all').then((r) => {
+    res.send(r.data.map((player) => {
+        delete player.uuid
+        return player
+      }))
+  })
+})
 
 app.get('/players', (req, res) => {
   console.log(`get /players (filtered) from ${req.ip}`)
