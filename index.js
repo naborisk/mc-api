@@ -1,7 +1,7 @@
-import 'dotenv/config'
-import express from 'express'
-import cors from 'cors'
-import axios from 'axios'
+require('dotenv').config()
+const express = require('express')
+const cors = require('cors')
+const axios = require('axios')
 
 const PORT = 2000
 
